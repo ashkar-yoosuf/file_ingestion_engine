@@ -1,0 +1,128 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Nov 16 09:31:57 2018
+
+@author: ashkar
+"""
+
+CURRENCY_SYMBOLS = ["$", "usd", "lkr", "rs"]
+
+HEADER_TYPES = {
+        '_': 'not updated',
+        'string': 'STRING',
+        'date': 'DATE',
+        'number': 'NUMBER'
+}
+
+STRING_SUBTYPES = {
+        'nothing': 'null'
+}
+
+DATE_SUBTYPES = {
+        'dateonly': 'DATE',
+        'datetime': 'DATETIME',
+        'time': 'TIME',
+        'duration': 'DURATION'
+}
+
+NUMBER_SUBTYPES = {
+        'currency': 'currency',
+        'percentage': 'percentage',
+        'normal': 'number'
+}
+
+STRING_FORMAT_TYPES = {
+        'nothing': 'null'
+}
+
+DATEONLY_FORMAT_TYPES = {
+        'MDY': 'MM/DD/YYYY',
+        'DMY': 'DD/MM/YYYY',
+        'YMD': 'YYYY/MM/DD',
+        'YDM': 'YYYY/DD/MM'
+}
+
+TIME_FORMAT_TYPES = {
+        'time1': 'HH:mm A',
+        'time2': 'HH:mm:ss',
+        'time3': 'H:mm:ss',
+        'time4': 'HH:mm',
+        'time5': 'H:mm'
+}
+
+DATETIME_FORMAT_TYPES = {
+        'MDY1': DATEONLY_FORMAT_TYPES['MDY'] + " " + TIME_FORMAT_TYPES['time1'],
+        'MDY2': DATEONLY_FORMAT_TYPES['MDY'] + " " + TIME_FORMAT_TYPES['time2'],
+        'MDY3': DATEONLY_FORMAT_TYPES['MDY'] + " " + TIME_FORMAT_TYPES['time3'],
+        'MDY4': DATEONLY_FORMAT_TYPES['MDY'] + " " + TIME_FORMAT_TYPES['time4'],
+        'MDY5': DATEONLY_FORMAT_TYPES['MDY'] + " " + TIME_FORMAT_TYPES['time5'],
+        'DMY1': DATEONLY_FORMAT_TYPES['DMY'] + " " + TIME_FORMAT_TYPES['time1'],
+        'DMY2': DATEONLY_FORMAT_TYPES['DMY'] + " " + TIME_FORMAT_TYPES['time2'],
+        'DMY3': DATEONLY_FORMAT_TYPES['DMY'] + " " + TIME_FORMAT_TYPES['time3'],
+        'DMY4': DATEONLY_FORMAT_TYPES['DMY'] + " " + TIME_FORMAT_TYPES['time4'],
+        'DMY5': DATEONLY_FORMAT_TYPES['DMY'] + " " + TIME_FORMAT_TYPES['time5'],
+        'YMD1': DATEONLY_FORMAT_TYPES['YMD'] + " " + TIME_FORMAT_TYPES['time1'],
+        'YMD2': DATEONLY_FORMAT_TYPES['YMD'] + " " + TIME_FORMAT_TYPES['time2'],
+        'YMD3': DATEONLY_FORMAT_TYPES['YMD'] + " " + TIME_FORMAT_TYPES['time3'],
+        'YMD4': DATEONLY_FORMAT_TYPES['YMD'] + " " + TIME_FORMAT_TYPES['time4'],
+        'YMD5': DATEONLY_FORMAT_TYPES['YMD'] + " " + TIME_FORMAT_TYPES['time5'],
+        'YDM1': DATEONLY_FORMAT_TYPES['YDM'] + " " + TIME_FORMAT_TYPES['time1'],
+        'YDM2': DATEONLY_FORMAT_TYPES['YDM'] + " " + TIME_FORMAT_TYPES['time2'],
+        'YDM3': DATEONLY_FORMAT_TYPES['YDM'] + " " + TIME_FORMAT_TYPES['time3'],
+        'YDM4': DATEONLY_FORMAT_TYPES['YDM'] + " " + TIME_FORMAT_TYPES['time4'],
+        'YDM5': DATEONLY_FORMAT_TYPES['YDM'] + " " + TIME_FORMAT_TYPES['time5']
+}
+
+DURATION_FORMAT_TYPES = {
+        'duration1': TIME_FORMAT_TYPES['time5'],
+        'duration2': TIME_FORMAT_TYPES['time4'],
+        'duration3': 'H' + TIME_FORMAT_TYPES['time4']
+}
+
+NUMBER_FORMAT_TYPES = {
+        'currency1': '$',
+        'currency2': 'usd',
+        'currency3': 'rs',
+        'currency4': 'lkr',
+        'percentage': '%',
+        'nothing': 'null'
+}
+
+PY_DATE_FORMATS = {
+        DATEONLY_FORMAT_TYPES['MDY']: '%m/%d/%Y',
+        DATEONLY_FORMAT_TYPES['DMY']: '%d/%m/%Y',
+        DATEONLY_FORMAT_TYPES['YMD']: '%Y/%m/%d',
+        DATEONLY_FORMAT_TYPES['YDM']: '%Y/%d/%m'
+}
+
+PY_TIME_FORMATS = {
+        TIME_FORMAT_TYPES['time1']: '%H:%M %p',
+        TIME_FORMAT_TYPES['time2']: '%H:%M:%S',
+        TIME_FORMAT_TYPES['time3']: '%H:%M:%S',
+        TIME_FORMAT_TYPES['time4']: '%H:%M',
+        TIME_FORMAT_TYPES['time5']: '%H:%M'
+}
+
+PY_DATETIME_FORMATS = {
+        DATETIME_FORMAT_TYPES['MDY1']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['MDY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time1']],
+        DATETIME_FORMAT_TYPES['DMY1']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['DMY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time1']],
+        DATETIME_FORMAT_TYPES['YMD1']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YMD']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time1']],
+        DATETIME_FORMAT_TYPES['YDM1']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YDM']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time1']],
+        DATETIME_FORMAT_TYPES['MDY2']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['MDY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time2']],
+        DATETIME_FORMAT_TYPES['DMY2']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['DMY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time2']],
+        DATETIME_FORMAT_TYPES['YMD2']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YMD']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time2']],
+        DATETIME_FORMAT_TYPES['YDM2']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YDM']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time2']],
+        DATETIME_FORMAT_TYPES['MDY3']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['MDY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time3']],
+        DATETIME_FORMAT_TYPES['DMY3']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['DMY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time3']],
+        DATETIME_FORMAT_TYPES['YMD3']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YMD']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time3']],
+        DATETIME_FORMAT_TYPES['YDM3']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YDM']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time3']],
+        DATETIME_FORMAT_TYPES['MDY4']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['MDY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time4']],
+        DATETIME_FORMAT_TYPES['DMY4']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['DMY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time4']],
+        DATETIME_FORMAT_TYPES['YMD4']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YMD']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time4']],
+        DATETIME_FORMAT_TYPES['YDM4']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YDM']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time4']],
+        DATETIME_FORMAT_TYPES['MDY5']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['MDY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time5']],
+        DATETIME_FORMAT_TYPES['DMY5']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['DMY']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time5']],
+        DATETIME_FORMAT_TYPES['YMD5']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YMD']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time5']],
+        DATETIME_FORMAT_TYPES['YDM5']: PY_DATE_FORMATS[DATEONLY_FORMAT_TYPES['YDM']] + " " + PY_TIME_FORMATS[TIME_FORMAT_TYPES['time5']]
+}
